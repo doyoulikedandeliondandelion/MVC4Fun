@@ -1,0 +1,25 @@
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Localization;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer localizer
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Home</title>
+</head>
+<body>
+    <h4>Hi-@localizer["greeting"]</h4>
+
+
+    <label>
+           <a asp-route-culture="en-us">English </a>
+           <a asp-route-culture="zh-tw">中文 </a>
+    </label>
+
+    <ul>
+        <li><a asp-controller="Movies">@localizer["movieR"]</a></li>
+    </ul>
+</body>
+</html>

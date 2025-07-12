@@ -1,0 +1,47 @@
+﻿@model MVC4Fun.Models.Movie
+@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IHtmlLocalizer<MVC4Fun.Models.Movie> localizerMovie;
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+
+<div>
+        <h4>@localizerMovie["Details"]</h4>
+    <hr />
+    <dl class="row">
+        <dt >
+            @Html.DisplayNameFor(model => model.Film)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Film)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Director)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Director)
+        </dd>
+    </dl>
+</div>
+<div>
+        <a asp-action="Edit" asp-route-id="@Model?.MovieID">@localizerMovie["Edit"]</a> |
+        <a asp-action="Index">@localizerMovie["Back to List"]</a>
+</div>
+</body>
+</html>

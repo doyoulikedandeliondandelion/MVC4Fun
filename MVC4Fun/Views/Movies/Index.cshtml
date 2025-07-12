@@ -1,0 +1,58 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IHtmlLocalizer<MVC4Fun.Models.Movie> localizerMovie;
+@model IEnumerable<MVC4Fun.Models.Movie>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+        <a asp-action="Create">@localizerMovie["Crete Movie Data"]</a>
+        <a asp-controller="Home">@localizerMovie["Back to Home"]</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Film)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Director)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Film)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Director)
+            </td>
+            <td>
+                        <a asp-action="Edit" asp-route-id="@item.MovieID">@localizerMovie["Edit"]</a> |
+                        <a asp-action="Details" asp-route-id="@item.MovieID">@localizerMovie["Details"]</a> |
+                        <a asp-action="Delete" asp-route-id="@item.MovieID">@localizerMovie["Delete"]</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

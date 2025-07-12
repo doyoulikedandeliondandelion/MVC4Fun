@@ -1,0 +1,20 @@
+﻿@model Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h1>網站異常</h1>
+    <ul>
+        <li>Message: @Model.Error.Message</li>
+        <li>Status Code: @ViewData["StatusCode"]</li>
+    </ul>
+</body>
+</html>
