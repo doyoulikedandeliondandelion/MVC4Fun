@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using log4net;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVC4Fun.Data;
 using MVC4Fun.Models;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace MVC4Fun.Controllers
 {
     public class MoviesController : Controller
     {
         private readonly MovieContext _context;
+        private readonly ILog logger = LogManager.GetLogger(typeof(Program));
 
         public MoviesController(MovieContext context)
         {
@@ -36,6 +35,8 @@ namespace MVC4Fun.Controllers
         // GET: Movies/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
             if (id == null)
             {
                 return NotFound();
@@ -47,6 +48,8 @@ namespace MVC4Fun.Controllers
             {
                 return NotFound();
             }
+            stopWatch.Stop();
+            logger.Info(MethodBase.GetCurrentMethod().ReflectedType.FullName + "，Cost:" + stopWatch.Elapsed.TotalMilliseconds + "，Data:" + movie.ToJsonStr());
 
             return View(movie);
         }
@@ -66,8 +69,13 @@ namespace MVC4Fun.Controllers
         {
             if (ModelState.IsValid)
             {
+                var stopWatch = new Stopwatch();
+                stopWatch.Start();
                 _context.Add(movie);
                 await _context.SaveChangesAsync();
+                stopWatch.Stop();
+                logger.Info(MethodBase.GetCurrentMethod().ReflectedType.FullName+"，Cost:"+ stopWatch.Elapsed.TotalMilliseconds+ "，Data:" + movie.ToJsonStr());
+
                 return RedirectToAction(nameof(Index));
             }
             return View(movie);
@@ -105,11 +113,17 @@ namespace MVC4Fun.Controllers
             {
                 try
                 {
+                    var stopWatch = new Stopwatch();
+                    stopWatch.Start();
                     _context.Update(movie);
                     await _context.SaveChangesAsync();
+                    stopWatch.Stop();
+                    logger.Info(MethodBase.GetCurrentMethod().ReflectedType.FullName + "，Cost:" + stopWatch.Elapsed.TotalMilliseconds + "，Data:" + movie.ToJsonStr());
+
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException ex)
                 {
+                    logger.Error(MethodBase.GetCurrentMethod().ReflectedType.FullName + "，Message:" + ex.Message.ToString());
                     if (!MovieExists(movie.MovieID))
                     {
                         return NotFound();
@@ -147,6 +161,8 @@ namespace MVC4Fun.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
             var movie = await _context.Movies.FindAsync(id);
             if (movie != null)
             {
@@ -154,6 +170,9 @@ namespace MVC4Fun.Controllers
             }
 
             await _context.SaveChangesAsync();
+            stopWatch.Stop();
+            logger.Info(MethodBase.GetCurrentMethod().ReflectedType.FullName + "，Cost:" + stopWatch.Elapsed.TotalMilliseconds + "，Data:" + id.ToJsonStr());
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -161,6 +180,5 @@ namespace MVC4Fun.Controllers
         {
             return _context.Movies.Any(e => e.MovieID == id);
         }
-
     }
 }
