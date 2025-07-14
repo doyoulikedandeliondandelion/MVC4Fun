@@ -13,7 +13,7 @@
  > [!NOTE] 
   可參考下圖
   
-  ![8](https://github.com/user-attachments/assets/4760a51f-e274-4a47-95c1-62a0f360a21f)
+ <img width="22" height="24" alt="image" src="https://github.com/user-attachments/assets/b38aec99-ca0e-4429-96c0-97280e841b51" />
 
 
 ## <功能簡介>  <br/>
