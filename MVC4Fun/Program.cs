@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Localization.Routing;
+﻿using log4net.Config;
+using Microsoft.AspNetCore.Localization.Routing;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using MVC4Fun.Data;
 using System.Globalization;
+using System.Net.Mime;
 
+XmlConfigurator.Configure(new FileInfo("log4net.config")); // 設定檔
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<MovieContext>(options =>
@@ -22,7 +24,7 @@ app.Environment.EnvironmentName = Environments.Production;
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-
+    app.UseStatusCodePages(MediaTypeNames.Text.Html,"<h1>Status Code: {0}</h1>");
 }
 
 /* route provider語系設定*/

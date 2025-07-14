@@ -11,12 +11,5 @@ namespace MVC4Fun.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult Index(string number)
-        {
-            int i = int.Parse(number);
-            ViewData["Result"] = $"Result: {i * i}";
-            return View();
-        }
     }
 }
