@@ -1,6 +1,10 @@
 # MVC4Fun
 功能:支援中文和英文的 電影推薦清單，可新增、刪除、修改、查詢
 
+## <影片>
+[![IMAGE ALT TEXT](video)](https://drive.google.com/file/d/17LtqzI-OzE8zIIz1sNAfOzGp3ojNe5et/view?usp=drivesdk "YOUR_VIDEO_TITLE")
+
+
 ## <建立資料庫>
 ### 需至Package Manager Console 視窗 key  <br/>
   1.add-migration initial 
